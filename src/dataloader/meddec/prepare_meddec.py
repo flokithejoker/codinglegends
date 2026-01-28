@@ -11,6 +11,7 @@ OUTPUT_DIR = Path("data/meddec/processed")
 # Define paths for the input data
 MIMIC_NOTES_PATH = PROJECT_ROOT / "data/mimic-iii/processed"
 MEDDEC_PATH = PROJECT_ROOT / "data/meddec/raw"
+PHENOTYPE_PATH = PROJECT_ROOT / "data/phenotype/raw"
 
 
 def load_mimic_notes() -> pl.DataFrame:
@@ -18,7 +19,7 @@ def load_mimic_notes() -> pl.DataFrame:
     Load MIMIC-III notes from the Parquet files.
     """
     logger.info(f"Loading MIMIC-III notes from {MIMIC_NOTES_PATH}")
-    mimic_notes = pl.read_parquet(MIMIC_NOTES_PATH / "mimiciii.parquet")
+    mimic_notes = pl.read_parquet(MIMIC_NOTES_PATH / "mimiciii_full.parquet")
 
     # Clean and preprocess `note_id` to handle multi-part IDs
     mimic_notes = mimic_notes.with_columns(
@@ -62,8 +63,8 @@ def load_phenotypes() -> pl.DataFrame:
     """
     Load phenotype annotations from the CSV file.
     """
-    logger.info(f"Loading phenotypes from {MEDDEC_PATH}")
-    phenotypes = pl.read_csv(MEDDEC_PATH / "ACTdb102003.csv")
+    logger.info(f"Loading phenotypes from {PHENOTYPE_PATH}")
+    phenotypes = pl.read_csv(PHENOTYPE_PATH / "ACTdb102003.csv")
     phenotypes = phenotypes.rename(
         {
             "SUBJECT_ID": mimic_utils.SUBJECT_ID_COLUMN,

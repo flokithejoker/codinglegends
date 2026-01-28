@@ -11,18 +11,18 @@ help:  ## Display this help
 download-data :
 	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/snomed-ct-entity-challenge/1.0.0/ -P data/snomed/raw || true
 	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/mimiciv/2.2/ -P data/mimic-iv/raw || true
-	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/mimic-iv-note/2.2/ -P data/mimic-iv-note/raw || true
+	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/mimic-iv-note/2.2/note/ -P data/mimic-iv-note/raw || true
 	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/mimiciii/1.4/ -P data/mimic-iii/raw || true
 	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/meddec/1.0.0/ -P data/meddec/raw || true
-	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/phenotype-annotations-mimic/1.20.03/ -P data/meddec/raw || true
+	wget -nd -r -N -c -np --user $(PHYSIONET_USER) --password $(PHYSIONET_PASS) https://physionet.org/files/phenotype-annotations-mimic/1.20.03/ -P data/phenotype/raw || true
 
 .PHONY: prepare-data
 prepare-data:
-	uv run python src/dataloader/mimiciii/prepare_mimiciii.py data/mimic-iii/raw data/mimic-iii/processed
-	uv run python src/dataloader/mimiciv/prepare_mimiciv.py data/mimic-iv/raw data/mimic-iv/processed
-	uv run python src/dataloader/mdace/prepare_mdace.py data/mdace/raw data/mdace/processed
-	uv run python src/dataloader/meddec/prepare_meddec.py data/meddec/raw data/meddec/processed
-	uv run python src/dataloader/snomed/prepare_snomed.py data/snomed/raw data/snomed/processed
+	PYTHONPATH=src uv run python src/dataloader/mimiciii/prepare_mimiciii.py data/mimic-iii/raw data/mimic-iii/processed
+	PYTHONPATH=src uv run python src/dataloader/mimiciv/prepare_mimiciv.py data/mimic-iv/raw data/mimic-iv/processed
+	PYTHONPATH=src uv run python src/dataloader/mdace/prepare_mdace.py data/mdace/raw data/mdace/processed
+	PYTHONPATH=src uv run python src/dataloader/meddec/prepare_meddec.py data/meddec/raw data/meddec/processed
+	PYTHONPATH=src uv run python src/dataloader/snomed/prepare_snomed.py data/snomed/raw data/snomed/processed
 
 .PHONY: install
 install:  ## Install the package for development along with pre-commit hooks.
