@@ -12,8 +12,6 @@
     - Negated findings ("no", "denies", "without", "negative for").
     - Uncertain or provisional statements ("possible", "likely", "rule out", "consider").
 
-    Output your final answer as a newline-separated list of strings within <answer>...</answer> tags.
-    If you are in doubt or no term meets the criteria above, output ID 0: "<answer>0</answer>".
     \n
 
 - name: new input
@@ -27,5 +25,4 @@
     ID: {{ loop.index }} | Term: "{{ t.path }}" | ID END: {{ loop.index }}
     {% endfor %}
 
-    Analyze the clinical note against the Alphabetical Index and exhaustively select the IDs the most relevant terms. If in doubt or no terms are relevant output ID 0. Please reason step by step, and output your final answer as the IDs of the selected term within <answer>...</answer>.
-    <think>
+    Analyze the clinical note against the Alphabetical Index and exhaustively select the IDs of the most relevant terms. If in doubt or no terms are relevant output ID 0. Reason step by step, then provide your answer following the structured output schema.

@@ -17,5 +17,4 @@
     ====== Now let's start! ======
     Clinical Note: {{ custom_tojson(note | escape) }}
 
-    Analyze the clinical note against the candidate codes to exhaustively select the IDs of all assignable codes prioritizing recall over precision. If none are assignable, output ID 0. Please reason step by step, and output your final answer as the IDs of the selected codes within <answer>...</answer>.
-    <think>
+    Analyze the clinical note against the candidate codes to exhaustively select the IDs of all assignable codes prioritizing recall over precision. If none are assignable, output ID 0. Reason step by step, then provide your answer following the structured output schema.

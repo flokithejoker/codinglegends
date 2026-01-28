@@ -26,5 +26,4 @@
     ID: {{ loop.index }} |  Code: {{ custom_tojson(c.name) }} | Description: {{ custom_tojson(c.description) }} | ID END: {{ loop.index }}
     {% endfor %}
 
-    Analyze the clinical note against the guidelines and the instructional notes to select the IDs of the outmost relevant code. If no candiate codes are relevant, output ID 0. Please reason step by step, and output your final answer as the IDs of the selected code within <answer>...</answer>.
-    <think>
+    Analyze the clinical note against the guidelines and the instructional notes to select the IDs of the most relevant codes. If no candidate codes are relevant, output ID 0. Reason step by step, then provide your answer following the structured output schema.
