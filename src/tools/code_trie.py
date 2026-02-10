@@ -52,6 +52,14 @@ class Category(Root):
     def __repr__(self) -> str:
         return f"{self.id} {self.min}-{self.max} {self.description}"
 
+    @property
+    def desc(self) -> str:
+        return self.description
+
+    @desc.setter
+    def desc(self, value: str) -> None:
+        self.description = value
+
     def within(self, code: str) -> bool:
         return self.min[: len(code)] <= code[: len(self.max)] <= self.max[: len(code)]
 

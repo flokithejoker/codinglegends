@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from src.agents.base import BaseAgent
+from agents.base import BaseAgent
 
 
 class LocateOutput(BaseModel):

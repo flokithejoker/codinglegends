@@ -6,6 +6,24 @@ from dataloader.mimiciv.constants import MIMIC_IV_50_PATH as mimiciv_50
 from dataloader.mimiciv.constants import MIMIC_IV_PATH as mimiciv
 from dataloader.snomed.constants import SNOMED_PATH as snomed
 
+_MIMICIV_CM_VERSIONS = ("3.0", "3.1", "3.2", "3.3", "3.4")
+
+
+def _mimiciv_cm_config(version: str) -> dict:
+    return {
+        "identifier": f"mimiciv-cm-{version}",
+        "name_or_path": mimiciv,
+        "split": "test",
+        "subsets": ["icd10"],
+        "options": {"subset_size": 1000, "adapter": "MimicIdentifyAdapter"},
+    }
+
+
+_MIMICIV_CM_CONFIGS = {
+    f"mimiciv-cm-{version}": _mimiciv_cm_config(version)
+    for version in _MIMICIV_CM_VERSIONS
+}
+
 DATASET_CONFIGS: dict[str, dict] = {
     "debug": {
         "identifier": "debug",
@@ -26,44 +44,10 @@ DATASET_CONFIGS: dict[str, dict] = {
         "identifier": "mimic-iv",
         "name_or_path": mimiciv,
         "split": "test",
-        "subsets": ["icd10cm-3.0"],
-        "options": {"subset_size": 300},
+        "subsets": ["icd10"],
+        "options": {"subset_size": 300, "adapter": "MimicIdentifyAdapter"},
     },
-    "mimiciv-cm-3.0": {
-        "identifier": "mimiciv-cm-3.0",
-        "name_or_path": mimiciv,
-        "split": "test",
-        "subsets": ["icd10cm-3.0"],
-        "options": {"subset_size": 1000},
-    },
-    "mimiciv-cm-3.1": {
-        "identifier": "mimiciv-cm-3.1",
-        "name_or_path": mimiciv,
-        "split": "test",
-        "subsets": ["icd10cm-3.1"],
-        "options": {"subset_size": 1000},
-    },
-    "mimiciv-cm-3.2": {
-        "identifier": "mimiciv-cm-3.2",
-        "name_or_path": mimiciv,
-        "split": "test",
-        "subsets": ["icd10cm-3.2"],
-        "options": {"subset_size": 1000},
-    },
-    "mimiciv-cm-3.3": {
-        "identifier": "mimiciv-cm-3.3",
-        "name_or_path": mimiciv,
-        "split": "test",
-        "subsets": ["icd10cm-3.3"],
-        "options": {"subset_size": 1000},
-    },
-    "mimiciv-cm-3.4": {
-        "identifier": "mimiciv-cm-3.4",
-        "name_or_path": mimiciv,
-        "split": "test",
-        "subsets": ["icd10cm-3.4"],
-        "options": {"subset_size": 1000},
-    },
+    **_MIMICIV_CM_CONFIGS,
     "mimic-iii-50": {
         "identifier": "mimic-iii-50",
         "name_or_path": mimiciii_50,
